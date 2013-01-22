@@ -196,7 +196,11 @@ THIRD_PARTY_APPS = (
 
     # Asynchronous task queue:
     'djcelery',
+
+    # Testing:
+    'django_nose',
 )
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 
 LOCAL_APPS = (
 )
