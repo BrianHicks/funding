@@ -247,6 +247,10 @@ WSGI_APPLICATION = 'wsgi.application'
 # See: http://django_compressor.readthedocs.org/en/latest/settings/#django.conf.settings.COMPRESS_ENABLED
 COMPRESS_ENABLED = True
 
+COMPRESS_PRECOMPILERS = (
+    ('text/scss', 'bundle exec sass {infile} {outfile}'),
+)
+
 # See: http://django_compressor.readthedocs.org/en/latest/settings/#django.conf.settings.COMPRESS_CSS_FILTERS
 COMPRESS_CSS_FILTERS = [
     'compressor.filters.template.TemplateFilter',
