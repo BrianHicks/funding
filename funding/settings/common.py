@@ -210,6 +210,7 @@ THIRD_PARTY_APPS = (
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 
 LOCAL_APPS = (
+    'apps.static',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
