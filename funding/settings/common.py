@@ -136,15 +136,8 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#template-loaders
 TEMPLATE_LOADERS = (
-    'jingo.Loader',
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
-)
-JINGO_EXCLUDE_APPS = (
-    'admin',
-    'admindocs',
-    'registration',
-    'debug_toolbar',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#template-dirs
