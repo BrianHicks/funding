@@ -66,3 +66,9 @@ MIDDLEWARE_CLASSES += (
     'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
 ########## END TOOLBAR CONFIGURATION
+
+########## COMPRESSION CONFIGURATION
+COMPRESS_PRECOMPILERS = (
+    ('text/scss', 'bundle exec sass -g -l --scss {infile} {outfile}'),
+)
+########## END COMPRESSION CONFIGURATION

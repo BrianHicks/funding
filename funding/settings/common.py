@@ -248,7 +248,7 @@ WSGI_APPLICATION = 'wsgi.application'
 COMPRESS_ENABLED = True
 
 COMPRESS_PRECOMPILERS = (
-    ('text/scss', 'bundle exec sass {infile} {outfile}'),
+    ('text/scss', 'bundle exec sass --scss {infile} {outfile}'),
 )
 
 # See: http://django_compressor.readthedocs.org/en/latest/settings/#django.conf.settings.COMPRESS_CSS_FILTERS
