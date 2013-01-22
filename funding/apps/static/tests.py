@@ -7,5 +7,5 @@ class HomepageTest(TestCase):
         'test that HomepageView is located at /'
         resp = self.client.get('/')
 
-        self.assertEqual(['homepage.html'], [t.name for t in resp.templates])
+        self.assertEqual('static/homepage.html', resp.templates[0].name)
         self.assertEqual(200, resp.status_code)
