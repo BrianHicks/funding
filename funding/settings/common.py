@@ -200,6 +200,11 @@ THIRD_PARTY_APPS = (
 
     # Testing:
     'django_nose',
+
+    # Profiles:
+    'userena',
+    'guardian',
+    'easy_thumbnails',
 )
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 SKIP_SOUTH_TESTS = True
@@ -272,6 +277,23 @@ COMPRESS_JS_FILTERS = [
 ]
 ########## END COMPRESSION CONFIGURATION
 
-########## CUSTOM USER
-AUTH_USER_MODEL = 'apps.accounts.User'
-########## END CUSTOM USER
+########## AUTHORIZATION
+AUTHENTICATION_BACKENDS = (
+    'userena.backends.UserenaAuthenticationBackend',
+    'guardian.backends.ObjectPermissionBackend',
+    'django.contrib.auth.backends.ModelBackend',
+)
+ANONYMOUS_USER_ID = -1
+
+USERENA_FORBIDDEN_USERNAMES = ('signup', 'signout', 'signin', 'activate', 'me', 'password')
+USERENA_MUGSHOT_GRAVATAR = True
+USERENA_MUGSHOT_DEFAULT = 'mm' # mystery man - a silhouette
+USERENA_DEFAULT_PRIVACY = 'open' # everyone can see profiles
+USERENA_DISABLE_PROFILE_LIST = False # until charity profiles are added
+USERENA_HIDE_EMAIL = True
+
+AUTH_PROFILE_MODULE = 'apps.accounts.UserProfile'
+LOGIN_REDIRECT_URL = '/accounts/%(username)s/'
+LOGIN_URL = '/accounts/signin/'
+LOGOUT_URL = '/accounts/signout/'
+##########

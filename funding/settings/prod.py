@@ -129,3 +129,7 @@ COMPRESS_JS_FILTERS += [
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
 SECRET_KEY = environ.get('SECRET_KEY', SECRET_KEY)
 ########## END SECRET CONFIGURATION
+
+########## AUTHORIZATION
+USERENA_USE_HTTPS = True
+########## END AUTHORIZATION
