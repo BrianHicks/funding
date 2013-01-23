@@ -3,6 +3,7 @@
 
 from datetime import timedelta
 from os.path import abspath, basename, dirname, join, normpath
+import sys
 from sys import path
 
 from djcelery import setup_loader
@@ -201,9 +202,12 @@ THIRD_PARTY_APPS = (
     'django_nose',
 )
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+SKIP_SOUTH_TESTS = True
+SOUTH_TESTS_MIGRATE = False
 
 LOCAL_APPS = (
     'apps.static',
+    'apps.accounts',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -251,6 +255,7 @@ WSGI_APPLICATION = 'wsgi.application'
 ########## COMPRESSION CONFIGURATION
 # See: http://django_compressor.readthedocs.org/en/latest/settings/#django.conf.settings.COMPRESS_ENABLED
 COMPRESS_ENABLED = True
+COMPRESS_OFFLINE = 'test' in sys.argv
 
 COMPRESS_PRECOMPILERS = (
     ('text/scss', 'bundle exec sass --scss {infile} {outfile}'),
@@ -266,3 +271,7 @@ COMPRESS_JS_FILTERS = [
     'compressor.filters.template.TemplateFilter',
 ]
 ########## END COMPRESSION CONFIGURATION
+
+########## CUSTOM USER
+AUTH_USER_MODEL = 'apps.accounts.User'
+########## END CUSTOM USER
