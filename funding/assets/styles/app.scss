@@ -3,4 +3,6 @@
 
 // TODO: implement header
 
-
+.main-container {
+    @include outer-container;
+}
