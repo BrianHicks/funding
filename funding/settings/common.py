@@ -292,7 +292,7 @@ USERENA_DEFAULT_PRIVACY = 'open' # everyone can see profiles
 USERENA_DISABLE_PROFILE_LIST = False # until charity profiles are added
 USERENA_HIDE_EMAIL = True
 
-AUTH_PROFILE_MODULE = 'apps.accounts.UserProfile'
+AUTH_PROFILE_MODULE = 'accounts.UserProfile'
 LOGIN_REDIRECT_URL = '/accounts/%(username)s/'
 LOGIN_URL = '/accounts/signin/'
 LOGOUT_URL = '/accounts/signout/'
