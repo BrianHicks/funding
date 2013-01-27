@@ -52,6 +52,6 @@
         </div>
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.js"></script>
-        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.9.0.js"><\/script>')</script>
+        {% block extra_scripts %}{% endblock extra_scripts %}
     </body>
 </html>
