@@ -13,7 +13,7 @@ urlpatterns = patterns(
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^admin/', include(admin.site.urls)),
 
-    url(r'^accounts/', include('apps.accounts.urls')),
+    url(r'^accounts/', include('apps.accounts.urls', namespace='accounts')),
 
     # put static last
     url(r'^', include('apps.static.urls')),
