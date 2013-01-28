@@ -1,0 +1,13 @@
+{
+  "name": "funding",
+  "version": "0.0.0",
+  "description": "Funding Webapp CSS deps",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/BrianHicks/funding.git"
+  },
+  "author": "",
+  "dependencies": {
+    "less": "1.3.3"
+  }
+}
