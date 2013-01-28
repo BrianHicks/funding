@@ -263,6 +263,7 @@ COMPRESS_ENABLED = True
 COMPRESS_OFFLINE = 'test' in sys.argv
 
 COMPRESS_PRECOMPILERS = (
+    ('text/less', 'node_modules/less/bin/lessc -x {infile} {outfile}'),
 )
 
 # See: http://django_compressor.readthedocs.org/en/latest/settings/#django.conf.settings.COMPRESS_CSS_FILTERS

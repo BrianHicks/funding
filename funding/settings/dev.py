@@ -69,5 +69,6 @@ MIDDLEWARE_CLASSES += (
 
 ########## COMPRESSION CONFIGURATION
 COMPRESS_PRECOMPILERS = (
+    ('text/less', 'node_modules/less/bin/lessc --line-numbers=comments {infile} {outfile}'),
 )
 ########## END COMPRESSION CONFIGURATION
