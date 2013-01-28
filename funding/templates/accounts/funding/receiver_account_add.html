@@ -1,0 +1,14 @@
+{% extends "internal_base.html" %}
+{% load compress %}
+
+{% block extra_scripts %}
+{% compress js %}
+<script type="text/javascript" src="{{ STATIC_URL }}scripts/vendor/balanced-v1.js"></script>
+{% endcompress %}
+{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    {{ form }}
+</div>
+{% endblock content %}
