@@ -263,7 +263,6 @@ COMPRESS_ENABLED = True
 COMPRESS_OFFLINE = 'test' in sys.argv
 
 COMPRESS_PRECOMPILERS = (
-    ('text/scss', 'bundle exec sass --scss {infile} {outfile}'),
 )
 
 # See: http://django_compressor.readthedocs.org/en/latest/settings/#django.conf.settings.COMPRESS_CSS_FILTERS

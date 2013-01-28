@@ -69,6 +69,5 @@ MIDDLEWARE_CLASSES += (
 
 ########## COMPRESSION CONFIGURATION
 COMPRESS_PRECOMPILERS = (
-    ('text/scss', 'bundle exec sass -g -l --scss {infile} {outfile}'),
 )
 ########## END COMPRESSION CONFIGURATION
