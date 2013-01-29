@@ -1,4 +1,5 @@
 {% extends "public_base.html" %}
+{% load url from future %}
 
 {% block content %}
 <div class="row-fluid">
@@ -8,7 +9,7 @@
         Securely accept donations and track your status online. Keep your
         donors up-to-date.
         </p>
-        <a href="#" class="btn btn-large btn-success">Sign up for free</a>
+        <a href="{% url "userena_signup" %}" class="btn btn-large btn-success">Sign up for free</a>
     </div>
 </div>
 
