@@ -16,5 +16,5 @@ urlpatterns = patterns(
     url(r'^accounts/', include('apps.accounts.urls')),
 
     # put static last
-    url(r'^', include('apps.static.urls')),
+    url(r'^', include('apps.static.urls', namespace='static')),
 )
