@@ -32,6 +32,7 @@
             <ul class="nav nav-pills pull-right">
                 <li><a href="{% url "static:homepage" %}">Home</a></li>
                 {% if user %}
+                <li><a href="{% url "userena_profile_detail" user %}">Your Profile</a></li>
                 <li><a href="{% url "userena_signout" %}">Sign Out</a></li>
                 {% else %}
                 <li><a href="{% url "userena_signin" %}">Sign In</a></li>
