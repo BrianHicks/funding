@@ -25,29 +25,27 @@
             <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
         <![endif]-->
 
-        <!-- TODO: implement and style -->
-        <!--<div class="header-container">-->
-            <!--<header class="wrapper clearfix">-->
-                <!--<h1>Funding</h1>-->
-                <!--<nav>-->
-                    <!--<ul>-->
-                        <!--<li><a href="#">nav ul li a</a></li>-->
-                        <!--<li><a href="#">nav ul li a</a></li>-->
-                        <!--<li><a href="#">nav ul li a</a></li>-->
-                    <!--</ul>-->
-                <!--</nav>-->
-            <!--</header>-->
-        <!--</div>-->
+        <div class="container">
+            <header class="masthead">
+            <nav>
+            <ul class="nav nav-pills pull-right">
+                <li><a href="/">Home</a></li>
+                <li><a href="/accounts/signin/">Sign In</a></li>
+                <li><a href="/accounts/signup/">Sign Up</a></li>
+            </ul>
+            </nav>
+            <h3 class="muted">Funding</h3>
+            </header>
 
-        <div class="main-container">
-            <div class="main wrapper">
-                {% block content %}{% endblock content %}
-            </div> <!-- #main -->
-        </div> <!-- #main-container -->
+            <hr />
 
-        <div class="footer-container">
-            <footer class="wrapper">
-                <h3>footer</h3>
+            <div class="main">{% block content %}{% endblock content %}</div>
+
+            <hr />
+
+            <footer class="row-fluid">
+                <p class="span6">Copyright &copy; 2013 Brian Hicks</p>
+                <p class="span6 pull-right right">CONTACT INFO</p>
             </footer>
         </div>
 
