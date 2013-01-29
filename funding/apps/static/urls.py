@@ -3,5 +3,5 @@ from .views import HomepageView
 
 urlpatterns = patterns(
     '',
-    url('^$', HomepageView.as_view()),
+    url('^$', HomepageView.as_view(), name='homepage'),
 )
