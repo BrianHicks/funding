@@ -14,6 +14,7 @@
 {% block content %}
 <div class="form-container">
     <form action="POST">
+        {% csrf_token %}
         <fieldset>
             <legend>Add a new funding destination</legend>
             <label for="id_name">Name of this account:</label>
