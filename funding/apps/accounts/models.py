@@ -12,3 +12,12 @@ class UserProfile(UserenaBaseProfile):
         verbose_name=_('user'),
         related_name='profile',
     )
+
+def get_or_create_user_profile(request):
+    profile = None
+    user = request.user
+    try:
+        profile = user.get_profile()
+    except UserProfile.DoesNotExist:
+        profile = UserProfile.objects.create(user=user)
+    return profile
