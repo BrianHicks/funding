@@ -6,6 +6,8 @@ from os.path import abspath, basename, dirname, join, normpath
 import sys
 from sys import path
 
+import os
+
 from djcelery import setup_loader
 
 
@@ -296,4 +298,9 @@ AUTH_PROFILE_MODULE = 'accounts.UserProfile'
 LOGIN_REDIRECT_URL = '/accounts/%(username)s/'
 LOGIN_URL = '/accounts/signin/'
 LOGOUT_URL = '/accounts/signout/'
+##########
+
+########## AUTHORIZATION
+BALANCED_URI = os.environ.get('BALANCED_URI', 'NONESET')
+BALANCED_SECREATE = os.environ.get('BALANCED_SECRET', 'NONESET')
 ##########
