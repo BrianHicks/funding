@@ -13,7 +13,7 @@
 
 {% block content %}
 <div class="form-container">
-    <form action="POST">
+    <form action="POST" class="form-horizontal">
         {% csrf_token %}
         <fieldset>
             <legend>Add a new funding destination</legend>
@@ -23,8 +23,13 @@
             Payments</a> and your bank account details are never stored on
             our servers.
             </p>
-            <label for="id_name">Name of this account:</label>
-            {{ form.name }}
+            <div class="control-group">
+                <label class="control-label" for="id_name">Name of this account:</label>
+                <div class="controls">
+                    {{ form.name }}
+                    <span class="help-inline">{{ form.name.help_text }}</span>
+                </div>
+            </div>
         </fieldset>
         <div class="form-actions">
             <button class="btn btn-primary" type="submit">Add</button>
