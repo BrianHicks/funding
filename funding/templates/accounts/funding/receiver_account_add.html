@@ -7,13 +7,22 @@
 <script type="text/javascript" src="{{ STATIC_URL }}scripts/vendor/knockout-2.2.1.js"></script>
 <script type="text/javascript">balanced.init("{{ BALANCED_URI}}");</script>
 <script type="text/javascript">
-
 </script>
 {% endcompress %}
 {% endblock %}
 
 {% block content %}
 <div class="form-container">
-    {{ form }}
+    <form action="POST">
+        <fieldset>
+            <legend>Add a new funding destination</legend>
+            <label for="id_name">Name of this account:</label>
+            {{ form.name }}
+        </fieldset>
+        <div class="form-actions">
+            <button class="btn btn-primary" type="submit">Add</button>
+            <a href=".." class="btn">Cancel</a>
+        </div>
+    </form>
 </div>
 {% endblock content %}
