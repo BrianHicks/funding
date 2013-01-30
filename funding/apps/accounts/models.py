@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
+from django.dispatch import receiver
 from django.utils.translation import ugettext as _
 from userena.models import UserenaBaseProfile
 
@@ -13,11 +14,10 @@ class UserProfile(UserenaBaseProfile):
         related_name='profile',
     )
 
-def get_or_create_user_profile(request):
-    profile = None
-    user = request.user
-    try:
-        profile = user.get_profile()
-    except UserProfile.DoesNotExist:
-        profile = UserProfile.objects.create(user=user)
-    return profile
+
+@receiver(models.signals.post_save, sender=User)
+def get_or_create_user_profile(sender, instance, created, **kwargs):
+    'get or create a user profile'
+    return UserProfile.objects.get_or_create(
+        user=instance
+    )
