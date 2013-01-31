@@ -79,6 +79,7 @@ ko.applyBindings(formApp, document.getElementById("add-form"));
         <div class="form-actions">
             <button class="btn btn-primary" type="submit" data-bind="enable: bankAccount.valid">Add</button>
             <a href=".." class="btn">Cancel</a>
+            <span class="help" data-bind="visible: !bankAccount.valid()">Please correct the errors above before continuing.</span>
         </div>
     </form>
 </div>
