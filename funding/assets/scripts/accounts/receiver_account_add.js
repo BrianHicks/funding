@@ -2,7 +2,7 @@ function BankAccountModel() {
     var self = this;
 
     self.routingNumber = new RoutingNumberModel();
-    self.accountNumber = ko.observable();
+    self.accountNumber = new AccountNumberModel();
     self.name = ko.observable();
 }
 
