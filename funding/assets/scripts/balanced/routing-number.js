@@ -7,5 +7,4 @@ function RoutingNumberModel(initial) {
         if (value.length <= 5) return true;
         return balanced.bankAccount.validateRoutingNumber(value);
     });
-    self.error = ko.observable('');
 }
