@@ -46,6 +46,11 @@ ko.applyBindings(formApp, document.getElementById("add-form"));
                     <input type="text" id="id_ba_name" class="ba-name" autocomplete="off" placeholder="Johnny Appleseed" />
                 </div>
             </div>
+            <p>
+            Valid routing numbers are 9 digits, and may include leading zeroes.
+            They are located in the bottom-left corner of most checks. It may
+            also be called the RTN, ABA, or Bank Code.
+            </p>
             <div class="control-group" data-bind="css: { error: !bankAccount.routingNumber.valid() }">
                 <label for="id_ba_rn" class="control-label">Routing Number:</label>
                 <div class="controls">
