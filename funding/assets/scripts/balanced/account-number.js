@@ -8,6 +8,12 @@ function AccountNumberModel(initial) {
 
         // balanced doesn't provide a helper method in this case, so we just
         // make sure it's all digits
-        return /\D/.exec(value) === null;
+        var valid = true;
+        if (/\D/.exec(value !== null) {
+            valid = false;
+            self.error('account number should be all digits');
+        } // else if... for more validations
+        return valid
     });
+    self.error = ko.observable('');
 }
