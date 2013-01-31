@@ -59,10 +59,11 @@ ko.applyBindings(formApp, document.getElementById("add-form"));
                     <span class="help-inline" data-bind="visible: !bankAccount.routingNumber.valid()">Invalid Routing Number - please see help above</span>
                 </div>
             </div>
-            <div class="control-group">
+            <div class="control-group" data-bind="css: { error: !bankAccount.accountNumber.valid() }">
                 <label for="id_ba_an">Account Number:</label>
                 <div class="controls">
-                    <input id="id_ba_an" type="text" class="ba-an" autocomplete="off" placeholder="xxxxxxxxx" />
+                    <input id="id_ba_an" type="text" class="ba-an" autocomplete="off" placeholder="xxxxxxxxx" data-bind="value: bankAccount.accountNumber.value, valueUpdate: 'afterkeydown'" />
+                    <span class="help-inline" data-bind="visible: !bankAccount.accountNumber.valid(), text: bankAccount.accountNumber.error"></span>
                 </div>
             </div>
             <div class="control-group">
