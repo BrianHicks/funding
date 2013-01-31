@@ -36,7 +36,7 @@ function BankAccountModel() {
     self.accountNumber = new AccountNumberModel();
     self.name = ko.observable();
 
-    self.valid = ko.observable(function() {
+    self.valid = ko.computed(function() {
         return self.routingNumber.valid() && self.accountNumber.valid();
     });
 }
