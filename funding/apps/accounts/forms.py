@@ -1,6 +1,8 @@
 'forms for accounts'
 from django import forms
+from .models import BankAccount
 
-class ReceiverAddAccountForm(forms.Form):
-    'form for adding an account as a receiver'
-    name = forms.CharField()
+class BankAccountForm(forms.ModelForm):
+    'form for adding a bank account'
+    class Meta:
+        model = BankAccount

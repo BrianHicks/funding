@@ -4,7 +4,8 @@ from funding.apps.accounts import views
 
 accounts_urls = patterns(
     '',
-    url(r'^add/$', views.ReceiverAddAccountView.as_view(), name='add')
+    url(r'^$', views.FundingListView.as_view(), name='index'),
+    url(r'^add/$', views.ReceiverAddAccountView.as_view(), name='add'),
 )
 
 urlpatterns = patterns(

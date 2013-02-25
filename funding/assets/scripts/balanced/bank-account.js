@@ -109,14 +109,15 @@ function BankAccountModel() {
                 return false;
                 break;
             case 201: // success!
-                self.balancedUri(response.data);
-                return false;
+                self.balancedUri(response.data.uri);
+                return true;
                 break;
         }
     }
 
     self.getUri = function() {
         if (!self.valid()) return false;
+        if (self.balancedUri()) return true;
         var data = {
             name: self.name.value(),
             account_number: self.accountNumber.value(),
@@ -124,6 +125,7 @@ function BankAccountModel() {
             type: self.type.value()
         }
         self.showGeneralError(false);
-        return balanced.bankAccount.create(data, self.responseHandler);
+        balanced.bankAccount.create(data, self.responseHandler);
+        return false;
     }
 }

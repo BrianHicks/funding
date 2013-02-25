@@ -11,20 +11,8 @@ class Migration(SchemaMigration):
         # Adding model 'BankAccount'
         db.create_table('accounts_bankaccount', (
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('balanced_id', self.gf('django.db.models.fields.CharField')(max_length=100)),
-            ('fingerprint', self.gf('django.db.models.fields.CharField')(max_length=25)),
-            ('is_valid', self.gf('django.db.models.fields.BooleanField')(default=True)),
-            ('bank_code', self.gf('django.db.models.fields.CharField')(max_length=25)),
-            ('bank_name', self.gf('django.db.models.fields.CharField')(max_length=100)),
-            ('account_number', self.gf('django.db.models.fields.CharField')(max_length=50)),
-            ('routing_number', self.gf('django.db.models.fields.CharField')(max_length=50)),
-            ('account_type', self.gf('django.db.models.fields.CharField')(max_length=10)),
-            ('last_four', self.gf('django.db.models.fields.CharField')(max_length=4)),
             ('name', self.gf('django.db.models.fields.CharField')(max_length=100)),
             ('uri', self.gf('django.db.models.fields.CharField')(max_length=500)),
-            ('credits_uri', self.gf('django.db.models.fields.CharField')(max_length=500)),
-            ('created_at', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
-            ('updated_at', self.gf('django.db.models.fields.DateTimeField')(auto_now=True, blank=True)),
         ))
         db.send_create_signal('accounts', ['BankAccount'])
 
@@ -37,20 +25,8 @@ class Migration(SchemaMigration):
     models = {
         'accounts.bankaccount': {
             'Meta': {'object_name': 'BankAccount'},
-            'account_number': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
-            'account_type': ('django.db.models.fields.CharField', [], {'max_length': '10'}),
-            'balanced_id': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'bank_code': ('django.db.models.fields.CharField', [], {'max_length': '25'}),
-            'bank_name': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'created_at': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
-            'credits_uri': ('django.db.models.fields.CharField', [], {'max_length': '500'}),
-            'fingerprint': ('django.db.models.fields.CharField', [], {'max_length': '25'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'is_valid': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
-            'last_four': ('django.db.models.fields.CharField', [], {'max_length': '4'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'routing_number': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
-            'updated_at': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
             'uri': ('django.db.models.fields.CharField', [], {'max_length': '500'})
         },
         'accounts.userprofile': {
