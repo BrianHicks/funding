@@ -1,0 +1,18 @@
+{% extends "internal_base.html" %}
+{% load compress %}
+
+{% block extra_scripts %}
+{% compress js %}
+{% endcompress %}
+{% endblock %}
+
+{% block content %}
+<h1>Your Bank Accounts</h1>
+<ul>
+    {% for ba in bankaccount_list %}
+    <li>{{ ba }}</li>
+    {% empty %}
+    <li>No Accounts in the System</li>
+    {% endfor %}
+</ul>
+{% endblock content %}

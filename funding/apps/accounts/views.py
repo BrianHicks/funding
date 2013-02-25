@@ -4,6 +4,7 @@ from django.views.generic.edit import FormView
 from django.views.generic.list import ListView
 
 from funding.apps.accounts.forms import BankAccountForm
+from funding.apps.accounts.models import BankAccount
 from funding.common.views import LoginRequiredMixin
 
 
@@ -15,3 +16,4 @@ class ReceiverAddAccountView(LoginRequiredMixin, FormView):
 
 class FundingListView(LoginRequiredMixin, ListView):
     'view to list funding sources'
+    model = BankAccount
