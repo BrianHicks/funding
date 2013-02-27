@@ -10,3 +10,6 @@ class BankAccount(models.Model):
         permissions = (
             ('view_bankaccount', 'View Bank Account'),
         )
+
+    def __unicode__(self):
+        return self.name
