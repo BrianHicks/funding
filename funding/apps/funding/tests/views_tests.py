@@ -21,6 +21,9 @@ class UserTestCase(TestCase):
 
 class ReceiverAddAccountViewTests(UserTestCase):
     'test ReceiverAddAccountView'
+    def tearDown(self):
+        BankAccount.objects.all().delete()
+
     def test_returns_200(self):
         'returns 200 for authenticated user'
         response = self.client.get(reverse('funding:add'))
@@ -43,3 +46,29 @@ class ReceiverAddAccountViewTests(UserTestCase):
             }
         )
         self.assertEqual(count + 1, BankAccount.objects.count())
+
+    def test_post_associates_user(self):
+        'post associates user with created BankAccount'
+        self.client.post(
+            reverse('funding:add'),
+            data={
+                'name': 'test_association',
+                'uri': '/test'
+            }
+        )
+        account = BankAccount.objects.get(name='test_association')
+
+        self.assertTrue(self.user.has_perm('delete_bankaccount', account))
+
+    def test_redirects(self):
+        'redirects after successfully creating'
+        response = self.client.post(
+            reverse('funding:add'),
+            data={
+                'name': 'test_association',
+                'uri': '/test'
+            }
+        )
+
+        self.assertEqual(302, response.status_code)
+        self.assertTrue(response['Location'].endswith(reverse('funding:list')))

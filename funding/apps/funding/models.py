@@ -5,3 +5,8 @@ class BankAccount(models.Model):
     'represent a balanced bank account'
     name = models.CharField(max_length=100)
     uri = models.CharField(max_length=500)
+
+    class Meta:
+        permissions = (
+            ('view_bankaccount', 'View Bank Account'),
+        )
