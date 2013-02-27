@@ -11,5 +11,4 @@ accounts_urls = patterns(
 urlpatterns = patterns(
     '',
     url(r'^funding/', include(accounts_urls, namespace='funding')),
-    url('', include('userena.urls')),
 )

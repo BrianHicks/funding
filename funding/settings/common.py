@@ -205,8 +205,7 @@ THIRD_PARTY_APPS = (
     # Testing:
     'django_nose',
 
-    # Profiles:
-    'userena',
+    # Utility
     'guardian',
     'easy_thumbnails',
 )
@@ -283,7 +282,6 @@ COMPRESS_JS_FILTERS = [
 
 ########## AUTHORIZATION
 AUTHENTICATION_BACKENDS = (
-    'userena.backends.UserenaAuthenticationBackend',
     'guardian.backends.ObjectPermissionBackend',
     'django.contrib.auth.backends.ModelBackend',
 )
