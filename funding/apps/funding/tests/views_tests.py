@@ -19,8 +19,8 @@ class UserTestCase(TestCase):
         self.client.login(username='test', password='test')
 
 
-class ReceiverAddAccountViewTests(UserTestCase):
-    'test ReceiverAddAccountView'
+class BankAccountAddViewTests(UserTestCase):
+    'test BankAccountAddView'
     def tearDown(self):
         BankAccount.objects.all().delete()
 

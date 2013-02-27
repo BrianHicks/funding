@@ -4,6 +4,6 @@ from funding.apps.funding import views
 
 urlpatterns = patterns(
     '',
-    url(r'^$', views.FundingListView.as_view(), name='list'),
-    url(r'^add/$', views.ReceiverAddAccountView.as_view(), name='add'),
+    url(r'^add/$', views.BankAccountAddView.as_view(), name='add'),
+    url(r'^$', views.BankAccountListView.as_view(), name='list'),
 )
