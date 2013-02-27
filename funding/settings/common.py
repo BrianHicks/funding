@@ -216,6 +216,7 @@ SOUTH_TESTS_MIGRATE = False
 LOCAL_APPS = (
     'apps.static',
     'apps.accounts',
+    'apps.funding',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps

@@ -1,7 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
 from django.dispatch import receiver
-from django.utils.translation import ugettext as _
 
 
 class UserProfile(models.Model):
@@ -9,7 +8,7 @@ class UserProfile(models.Model):
     user = models.OneToOneField(
         User,
         unique=True,
-        verbose_name=_('user'),
+        verbose_name='user',
         related_name='profile',
     )
 
@@ -22,8 +21,4 @@ def get_or_create_user_profile(sender, instance, created, **kwargs):
     )
 
 
-# Balanced Payments models
-class BankAccount(models.Model):
-    'represent a balanced bank account'
-    name = models.CharField(max_length=100)
-    uri = models.CharField(max_length=500)
+

@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.test import TestCase
 
-from funding.apps.accounts.models import BankAccount
+from funding.apps.funding.models import BankAccount
 
 
 class UserTestCase(TestCase):
