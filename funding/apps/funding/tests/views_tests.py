@@ -2,6 +2,7 @@
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.test import TestCase
+from guardian.shortcuts import assign
 
 from funding.apps.funding.models import BankAccount
 
@@ -72,3 +73,29 @@ class BankAccountAddViewTests(UserTestCase):
 
         self.assertEqual(302, response.status_code)
         self.assertTrue(response['Location'].endswith(reverse('funding:list')))
+
+
+class BankAccountListViewTests(UserTestCase):
+    'tests for BankAccountListView'
+    def test_returns_404(self):
+        'returns 404 for an unauthorized user'
+        self.client.logout()
+        response = self.client.get(reverse('funding:list'))
+        self.assertEqual(302, response.status_code)
+
+    def test_lists_owned_objects(self):
+        'returns a list of owned objects, without unowned objects'
+        yes = BankAccount.objects.create(name='yes', uri='yes')
+        no = BankAccount.objects.create(name='no', uri='no')
+
+        self.addCleanup(yes.delete)
+        self.addCleanup(no.delete)
+
+        assign('view_bankaccount', self.user, yes)
+
+        response = self.client.get(reverse('funding:list'))
+
+        self.assertEqual(
+            [yes],
+            list(response.context['bankaccount_list'])
+        )
