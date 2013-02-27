@@ -3,9 +3,11 @@ from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.test import TestCase
 
+from funding.apps.accounts.models import BankAccount
 
-class ReceiverAddAccountViewTests(TestCase):
-    'test ReceiverAddAccountView'
+
+class UserTestCase(TestCase):
+    'test with a user'
     def setUp(self):
         'add a user'
         self.user = User.objects.create_user(
@@ -16,6 +18,9 @@ class ReceiverAddAccountViewTests(TestCase):
 
         self.client.login(username='test', password='test')
 
+
+class ReceiverAddAccountViewTests(UserTestCase):
+    'test ReceiverAddAccountView'
     def test_returns_200(self):
         'returns 200 for authenticated user'
         response = self.client.get(reverse('funding:add'))
@@ -26,3 +31,15 @@ class ReceiverAddAccountViewTests(TestCase):
         self.client.logout()
         response = self.client.get(reverse('funding:add'))
         self.assertEqual(302, response.status_code)
+
+    def test_post_creates_bankaccount(self):
+        'post creates a BankAccount'
+        count = BankAccount.objects.count()
+        response = self.client.post(
+            reverse('funding:add'),
+            data={
+                'name': 'Test',
+                'uri': '/test'
+            }
+        )
+        self.assertEqual(count + 1, BankAccount.objects.count())
