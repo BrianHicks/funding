@@ -1,5 +1,6 @@
 {% extends "internal_base.html" %}
 {% load compress %}
+{% load url from future %}
 
 {% block extra_scripts %}
 {% compress js %}
@@ -10,7 +11,7 @@
 <h1>Your Bank Accounts</h1>
 <ul>
     {% for ba in bankaccount_list %}
-    <li>{{ ba }}</li>
+    <li>{{ ba }} - <a href="{% url "funding:delete" ba.pk %}">[delete]</a></li>
     {% empty %}
     <li>No Accounts in the System</li>
     {% endfor %}
