@@ -99,3 +99,50 @@ class BankAccountListViewTests(UserTestCase):
             [yes],
             list(response.context['bankaccount_list'])
         )
+
+
+class BankAccountDeleteViewTests(UserTestCase):
+    'test deleting'
+    def setUp(self):
+        self.ba = BankAccount.objects.create(name='test', uri='test')
+        self.addCleanup(self.ba.delete)
+        super(BankAccountDeleteViewTests, self).setUp()
+
+    def test_get_302(self):
+        'GET is a 404 if not logged in'
+        self.client.logout()
+        response = self.client.get(reverse(
+            'funding:delete', kwargs={'pk': self.ba.pk}
+        ))
+        self.assertEqual(302, response.status_code)
+
+    def test_get_404_not_authorized(self):
+        'GET is a 404 if not authorized'
+        response = self.client.get(reverse(
+            'funding:delete', kwargs={'pk': self.ba.pk}
+        ))
+        self.assertEqual(404, response.status_code)
+
+    def test_get_200_authorized(self):
+        'GET is 200 if authorized'
+        assign('delete_bankaccount', self.user, self.ba)
+        response = self.client.get(reverse(
+            'funding:delete', kwargs={'pk': self.ba.pk}
+        ))
+        self.assertEqual(200, response.status_code)
+
+    def test_post_404_unauthorized(self):
+        'POST is 404 if unauthorized'
+        response = self.client.get(reverse(
+            'funding:delete', kwargs={'pk': self.ba.pk}
+        ))
+        self.assertEqual(404, response.status_code)
+
+    def test_post_302_authorized(self):
+        'POST is 302 if authorized'
+        assign('delete_bankaccount', self.user, self.ba)
+        response = self.client.post(reverse(
+            'funding:delete', kwargs={'pk': self.ba.pk}
+        ))
+        self.assertEqual(302, response.status_code)
+        self.assertTrue(response['Location'].endswith(reverse('funding:list')))

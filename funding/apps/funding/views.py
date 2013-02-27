@@ -1,6 +1,7 @@
 'views for funding'
 from django.core.urlresolvers import reverse_lazy
-from django.views.generic.edit import CreateView
+from django.http import Http404
+from django.views.generic.edit import CreateView, DeleteView
 from django.views.generic.list import ListView
 from guardian.shortcuts import assign, get_objects_for_user
 
@@ -34,4 +35,16 @@ class BankAccountListView(LoginRequiredMixin, ListView):
         'get a queryset for the user'
         return get_objects_for_user(
             self.request.user, 'funding.view_bankaccount'
+        )
+
+
+class BankAccountDeleteView(LoginRequiredMixin, DeleteView):
+    'view to delete funding sources'
+    model = BankAccount
+    success_url = reverse_lazy('funding:list')
+
+    def get_queryset(self):
+        'get queryset for BankAccounts'
+        return get_objects_for_user(
+            self.request.user, 'funding.delete_bankaccount',
         )
