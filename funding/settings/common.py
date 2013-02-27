@@ -288,13 +288,6 @@ AUTHENTICATION_BACKENDS = (
 )
 ANONYMOUS_USER_ID = -1
 
-USERENA_FORBIDDEN_USERNAMES = ('signup', 'signout', 'signin', 'activate', 'me', 'password')
-USERENA_MUGSHOT_GRAVATAR = True
-USERENA_MUGSHOT_DEFAULT = 'mm' # mystery man - a silhouette
-USERENA_DEFAULT_PRIVACY = 'open' # everyone can see profiles
-USERENA_DISABLE_PROFILE_LIST = False # until charity profiles are added
-USERENA_HIDE_EMAIL = True
-
 AUTH_PROFILE_MODULE = 'accounts.UserProfile'
 LOGIN_REDIRECT_URL = '/accounts/%(username)s/'
 LOGIN_URL = '/accounts/signin/'
