@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+{% load url from future %}
+{% load i18n %}
+
+{% block title %}Sign Up Closed{% endblock title %}
+
+{% block content %}
+<h1>{% trans "Sign up closed" %}</h1>
+{% if code %}
+<p>{% blocktrans %}The code you provided was not accepted.{% endblocktrans %}</p>
+{% else %}
+<p>{% blocktrans %}Sign up is closed to the general public.{% endblocktrans %}</p>
+{% endif %}
+{% endblock content %}

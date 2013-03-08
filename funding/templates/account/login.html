@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+{% load url from future %}
+{% load i18n %}
+
+{% block title %}Log In{% endblock title %}
+
+{% block content %}
+<div class="row">
+    <div class="span12">
+        <form method="POST" action="{% url "account_login" %}" autocapitalize="off" class="form-horizontal"{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
+            <legend>{% trans "Log in to an existing account" %}</legend>
+            {% csrf_token %}
+            {{ form|crispy }}
+            {% if redirect_field_value %}
+            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+            {% endif %}
+            <div class="form-actions">
+                <a href="{% url "account_password_reset" %}" class="btn">{% trans "Forgot your password?" %}</a>
+                <button type="submit" class="btn btn-primary">{% trans "Log in" %}</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock content %}

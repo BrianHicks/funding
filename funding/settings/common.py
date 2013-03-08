@@ -128,6 +128,7 @@ FIXTURE_DIRS = (
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#template-context-processors
 TEMPLATE_CONTEXT_PROCESSORS = (
     'django.contrib.auth.context_processors.auth',
+    'account.context_processors.account',
     'django.core.context_processors.debug',
     'django.core.context_processors.i18n',
     'django.core.context_processors.media',
@@ -164,6 +165,10 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+
+    # Account middleware
+    'account.middleware.LocaleMiddleware',
+    'account.middleware.TimezoneMiddleware',
 )
 ########## END MIDDLEWARE CONFIGURATION
 
@@ -205,9 +210,13 @@ THIRD_PARTY_APPS = (
     # Testing:
     'django_nose',
 
+    # User management:
+    'account',
+
     # Utility
     'guardian',
     'easy_thumbnails',
+    'crispy_forms',
 )
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 SKIP_SOUTH_TESTS = True
@@ -222,6 +231,10 @@ LOCAL_APPS = (
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 ########## END APP CONFIGURATION
+
+########## CRISPY CONFIGURATION
+CRISPY_TEMPLATE_PACK = 'bootstrap'
+########## END CRISPY CONFIGURATION
 
 
 ########## LOGGING CONFIGURATION

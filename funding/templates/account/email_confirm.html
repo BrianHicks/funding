@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+{% load url from future %}
+{% load i18n %}
+
+{% block title %}Confirm your email address{% endblock title %}
+
+{% block content %}
+<div class="row">
+    <div class="span12">
+        <form method="post" action="{% url "account_confirm_email" key=confirmation.key %}" class="form-horizontal">
+            <legend>{% trans "Confirm Email" %}</legend>
+            <fieldset>
+                {% csrf_token %}
+                <p>{% blocktrans with email=confirmation.email_address.email %}Confirm email address <b>{{ email }}</b>?{% endblocktrans %}</p>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">{% trans "Confirm" %}</button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>
+{% endblock content %}

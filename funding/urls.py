@@ -15,6 +15,8 @@ urlpatterns = patterns(
 
     url(r'^funding/', include('apps.funding.urls', namespace='funding')),
 
+    url(r'^account/', include('account.urls')),
+
     # put static last
     url(r'^', include('apps.static.urls', namespace='static')),
 )

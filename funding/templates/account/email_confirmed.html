@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+{% load url from future %}
+{% load i18n %}
+
+{% block title %}Email Confirmed{% endblock title %}
+
+{% block content %}
+<div class="row">
+    <div class="span12">
+        <h1>{% trans "Email confirmed" %}</h1>
+        <p>{% blocktrans with email=confirmation.email_address.email %}You have confirmed <b>{{ email }}</b>{% endblocktrans %}</p>
+    </div>
+</div>
+{% endblock content %}
