@@ -304,6 +304,10 @@ ANONYMOUS_USER_ID = -1
 AUTH_PROFILE_MODULE = 'accounts.UserProfile'
 LOGIN_URL = '/accounts/signin/'
 LOGOUT_URL = '/accounts/signout/'
+
+ACCOUNT_EMAIL_CONFIRMATION_REQUIRED = True
+ACCOUNT_NOTIFY_ON_PASSWORD_CHANGE = True
+ACCOUNT_OPEN_SIGNUP = False  # ... for now
 ##########
 
 ########## AUTHORIZATION
