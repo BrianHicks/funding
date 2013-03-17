@@ -1,8 +1,8 @@
 'forms for accounts'
 from django import forms
-from .models import BankAccount
+from .models import BalancedAccount
 
-class BankAccountForm(forms.ModelForm):
+class BalancedAccountForm(forms.ModelForm):
     'form for adding a bank account'
     class Meta:
-        model = BankAccount
+        model = BalancedAccount

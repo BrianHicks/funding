@@ -4,7 +4,7 @@ from django.core.urlresolvers import reverse
 from django.test import TestCase
 from guardian.shortcuts import assign
 
-from funding.apps.funding.models import BankAccount
+from funding.apps.funding.models import BalancedAccount
 
 
 class UserTestCase(TestCase):
@@ -20,10 +20,10 @@ class UserTestCase(TestCase):
         self.client.login(username='test', password='test')
 
 
-class BankAccountAddViewTests(UserTestCase):
-    'test BankAccountAddView'
+class BalancedAccountAddViewTests(UserTestCase):
+    'test BalancedAccountAddView'
     def tearDown(self):
-        BankAccount.objects.all().delete()
+        BalancedAccount.objects.all().delete()
 
     def test_returns_200(self):
         'returns 200 for authenticated user'
@@ -36,9 +36,9 @@ class BankAccountAddViewTests(UserTestCase):
         response = self.client.get(reverse('funding:add'))
         self.assertEqual(302, response.status_code)
 
-    def test_post_creates_bankaccount(self):
-        'post creates a BankAccount'
-        count = BankAccount.objects.count()
+    def test_post_creates_balancedaccount(self):
+        'post creates a BalancedAccount'
+        count = BalancedAccount.objects.count()
         response = self.client.post(
             reverse('funding:add'),
             data={
@@ -46,10 +46,10 @@ class BankAccountAddViewTests(UserTestCase):
                 'uri': '/test'
             }
         )
-        self.assertEqual(count + 1, BankAccount.objects.count())
+        self.assertEqual(count + 1, BalancedAccount.objects.count())
 
     def test_post_associates_user(self):
-        'post associates user with created BankAccount'
+        'post associates user with created BalancedAccount'
         self.client.post(
             reverse('funding:add'),
             data={
@@ -57,9 +57,9 @@ class BankAccountAddViewTests(UserTestCase):
                 'uri': '/test'
             }
         )
-        account = BankAccount.objects.get(name='test_association')
+        account = BalancedAccount.objects.get(name='test_association')
 
-        self.assertTrue(self.user.has_perm('delete_bankaccount', account))
+        self.assertTrue(self.user.has_perm('delete_balancedaccount', account))
 
     def test_redirects(self):
         'redirects after successfully creating'
@@ -75,8 +75,8 @@ class BankAccountAddViewTests(UserTestCase):
         self.assertTrue(response['Location'].endswith(reverse('funding:list')))
 
 
-class BankAccountListViewTests(UserTestCase):
-    'tests for BankAccountListView'
+class BalancedAccountListViewTests(UserTestCase):
+    'tests for BalancedAccountListView'
     def test_returns_404(self):
         'returns 404 for an unauthorized user'
         self.client.logout()
@@ -85,28 +85,28 @@ class BankAccountListViewTests(UserTestCase):
 
     def test_lists_owned_objects(self):
         'returns a list of owned objects, without unowned objects'
-        yes = BankAccount.objects.create(name='yes', uri='yes')
-        no = BankAccount.objects.create(name='no', uri='no')
+        yes = BalancedAccount.objects.create(name='yes', uri='yes')
+        no = BalancedAccount.objects.create(name='no', uri='no')
 
         self.addCleanup(yes.delete)
         self.addCleanup(no.delete)
 
-        assign('view_bankaccount', self.user, yes)
+        assign('view_balancedaccount', self.user, yes)
 
         response = self.client.get(reverse('funding:list'))
 
         self.assertEqual(
             [yes],
-            list(response.context['bankaccount_list'])
+            list(response.context['balancedaccount_list'])
         )
 
 
-class BankAccountDeleteViewTests(UserTestCase):
+class BalancedAccountDeleteViewTests(UserTestCase):
     'test deleting'
     def setUp(self):
-        self.ba = BankAccount.objects.create(name='test', uri='test')
+        self.ba = BalancedAccount.objects.create(name='test', uri='test')
         self.addCleanup(self.ba.delete)
-        super(BankAccountDeleteViewTests, self).setUp()
+        super(BalancedAccountDeleteViewTests, self).setUp()
 
     def test_get_302(self):
         'GET is a 404 if not logged in'
@@ -125,7 +125,7 @@ class BankAccountDeleteViewTests(UserTestCase):
 
     def test_get_200_authorized(self):
         'GET is 200 if authorized'
-        assign('delete_bankaccount', self.user, self.ba)
+        assign('delete_balancedaccount', self.user, self.ba)
         response = self.client.get(reverse(
             'funding:delete', kwargs={'pk': self.ba.pk}
         ))
@@ -140,7 +140,7 @@ class BankAccountDeleteViewTests(UserTestCase):
 
     def test_post_302_authorized(self):
         'POST is 302 if authorized'
-        assign('delete_bankaccount', self.user, self.ba)
+        assign('delete_balancedaccount', self.user, self.ba)
         response = self.client.post(reverse(
             'funding:delete', kwargs={'pk': self.ba.pk}
         ))
