@@ -1,47 +1,50 @@
 'test methods on BalancedAccount model'
 from django.contrib.auth.models import User
 from django.test import TestCase
+from itertools import product
+from milkman.dairy import milkman
+from nose import with_setup
 
-from funding.apps.funding.models import BalancedAccount, BalancedAccountsManager
+from funding.apps.funding.models import BalancedAccount, \
+    BalancedAccountManager, BalancedAccountTypes
 
+def test_assigns_permissions():
+    'fully_authorize assigns permissions'
+    yield check_assigns_permissions, 'view'
+    yield check_assigns_permissions, 'change'
+    yield check_assigns_permissions, 'delete'
 
-class BalancedAccountTests(TestCase):
-    'test for BalancedAccount'
-    def setUp(self):
-        'set up objects for testing'
-        self.user = self.get_user()
-        self.account = BalancedAccount.objects.create(
-            kind='bank', name='test', uri='/test'
-        )
-        self.addCleanup(self.account.delete)
+def check_assigns_permissions(perm):
+    user = milkman.deliver(User)
+    ba = milkman.deliver(BalancedAccount)
+    ba.fully_authorize(user)
 
-    def get_user(self, **user_kwargs):
-        'get a user for testing'
-        user_kwargs.setdefault('username', 'test')
-        user_kwargs.setdefault('email', 'test@example.com')
+    perm = 'funding.%s_balancedaccount' % perm
+    try:
+        assert user.has_perm(perm, ba), \
+            'user has no perm %s' % perm
+    finally:
+        user.delete()
+        ba.delete()
 
-        user = User.objects.create(**user_kwargs)
-        self.addCleanup(user.delete)
+def test_for_user():
+    'test for_user on manager'
+    kinds = dict(BalancedAccountTypes).keys()
+    perms = ['view', 'change', 'delete']
 
-        return user
+    for kind, perm in product(kinds, perms):
+        yield check_for_user, kind, perm
 
-    def test_fully_authorize_view(self):
-        'fully_authorize adds view permission'
-        self.account.fully_authorize(self.user)
-        self.assertTrue(
-            self.user.has_perm('funding.view_balancedaccount', self.account)
-        )
+def check_for_user(kind, perm):
+    user = milkman.deliver(User)
+    ba = milkman.deliver(
+        BalancedAccount, kind=kind, name=':'.join([kind, perm])
+    )
+    ba.fully_authorize(user)
 
-    def test_fully_authorize_change(self):
-        'fully_authorize adds change permission'
-        self.account.fully_authorize(self.user)
-        self.assertTrue(
-            self.user.has_perm('funding.change_balancedaccount', self.account)
-        )
-
-    def test_fully_authorize_delete(self):
-        'fully_authorize adds delete permission'
-        self.account.fully_authorize(self.user)
-        self.assertTrue(
-            self.user.has_perm('funding.delete_balancedaccount', self.account)
-        )
+    qs = BalancedAccount.objects.for_user(kind, perm, user)
+    try:
+        assert ba in qs, '%r not in %r' % (ba, qs)
+    finally:
+        user.delete()
+        ba.delete()

@@ -1,5 +1,5 @@
 from django.db import models
-from guardian.shortcuts import assign
+from guardian.shortcuts import assign, get_objects_for_user
 
 from funding.libs.choices import Choice
 
@@ -9,8 +9,13 @@ class BalancedAccountTypes(Choice):
     CREDIT_CARD = 'card'
 
 
-class BalancedAccountsManager(models.Manager):
+class BalancedAccountManager(models.Manager):
     'managed for BalancedAccount objects'
+    def for_user(self, kind, perm, user):
+        'get objects of a kind and of a perm for user'
+        return get_objects_for_user(
+            user, 'funding.%s_balancedaccount' % perm
+        ).filter(kind=kind)
 
 
 class BalancedAccount(models.Model):
@@ -19,7 +24,7 @@ class BalancedAccount(models.Model):
     name = models.CharField(max_length=100)
     uri = models.CharField(max_length=500)
 
-    objects = BalancedAccountsManager()
+    objects = BalancedAccountManager()
 
     def fully_authorize(self, user):
         'authorize a user to view and modify this account'
