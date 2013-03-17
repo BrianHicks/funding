@@ -2,7 +2,6 @@
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.test import TestCase
-from guardian.shortcuts import assign
 
 from funding.apps.funding.models import BalancedAccount
 
@@ -85,13 +84,13 @@ class BalancedAccountListViewTests(UserTestCase):
 
     def test_lists_owned_objects(self):
         'returns a list of owned objects, without unowned objects'
-        yes = BalancedAccount.objects.create(name='yes', uri='yes')
-        no = BalancedAccount.objects.create(name='no', uri='no')
+        yes = BalancedAccount.objects.create(name='yes', uri='yes', kind='bank')
+        no = BalancedAccount.objects.create(name='no', uri='no', kind='bank')
 
         self.addCleanup(yes.delete)
         self.addCleanup(no.delete)
 
-        assign('view_balancedaccount', self.user, yes)
+        yes.fully_authorize(self.user)
 
         response = self.client.get(reverse('funding:list'))
 
@@ -104,7 +103,7 @@ class BalancedAccountListViewTests(UserTestCase):
 class BalancedAccountDeleteViewTests(UserTestCase):
     'test deleting'
     def setUp(self):
-        self.ba = BalancedAccount.objects.create(name='test', uri='test')
+        self.ba = BalancedAccount.objects.create(name='test', uri='test', kind='bank')
         self.addCleanup(self.ba.delete)
         super(BalancedAccountDeleteViewTests, self).setUp()
 
@@ -125,7 +124,7 @@ class BalancedAccountDeleteViewTests(UserTestCase):
 
     def test_get_200_authorized(self):
         'GET is 200 if authorized'
-        assign('delete_balancedaccount', self.user, self.ba)
+        self.ba.fully_authorize(self.user)
         response = self.client.get(reverse(
             'funding:delete', kwargs={'pk': self.ba.pk}
         ))
@@ -140,7 +139,7 @@ class BalancedAccountDeleteViewTests(UserTestCase):
 
     def test_post_302_authorized(self):
         'POST is 302 if authorized'
-        assign('delete_balancedaccount', self.user, self.ba)
+        self.ba.fully_authorize(self.user)
         response = self.client.post(reverse(
             'funding:delete', kwargs={'pk': self.ba.pk}
         ))

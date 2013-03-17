@@ -3,7 +3,6 @@ from django.core.urlresolvers import reverse_lazy
 from django.http import Http404
 from django.views.generic.edit import CreateView, DeleteView
 from django.views.generic.list import ListView
-from guardian.shortcuts import assign, get_objects_for_user
 
 from funding.apps.funding.forms import BalancedAccountForm
 from funding.apps.funding.models import BalancedAccount, BalancedAccountTypes
@@ -39,8 +38,8 @@ class BalancedAccountListView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         'get a queryset for the user'
-        return get_objects_for_user(
-            self.request.user, 'funding.view_balancedaccount'
+        return BalancedAccount.objects.for_user(
+            'bank', 'view', self.request.user
         )
 
 
@@ -51,6 +50,8 @@ class BalancedAccountDeleteView(LoginRequiredMixin, DeleteView):
 
     def get_queryset(self):
         'get queryset for BalancedAccounts'
-        return get_objects_for_user(
-            self.request.user, 'funding.delete_balancedaccount',
+        qs = BalancedAccount.objects.for_user(
+            'bank', 'delete', self.request.user
         )
+        print qs
+        return qs
