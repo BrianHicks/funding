@@ -226,6 +226,7 @@ LOCAL_APPS = (
     'apps.static',
     'apps.accounts',
     'apps.funding',
+    'apps.trips',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
