@@ -2,7 +2,7 @@
 from django.db import models
 
 
-class Goal(models.Model):
+class Trip(models.Model):
     'a missions trip or project'
     # internal representation of this data
     created_at = models.DateTimeField(auto_now_add=True)

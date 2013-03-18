@@ -8,8 +8,8 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding model 'Goal'
-        db.create_table('trips_goal', (
+        # Adding model 'Trip'
+        db.create_table('trips_trip', (
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('created_at', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
             ('updated_at', self.gf('django.db.models.fields.DateTimeField')(auto_now=True, blank=True)),
@@ -21,17 +21,17 @@ class Migration(SchemaMigration):
             ('due', self.gf('django.db.models.fields.DateTimeField')()),
             ('testimony', self.gf('django.db.models.fields.TextField')(blank=True)),
         ))
-        db.send_create_signal('trips', ['Goal'])
+        db.send_create_signal('trips', ['Trip'])
 
 
     def backwards(self, orm):
-        # Deleting model 'Goal'
-        db.delete_table('trips_goal')
+        # Deleting model 'Trip'
+        db.delete_table('trips_trip')
 
 
     models = {
-        'trips.goal': {
-            'Meta': {'object_name': 'Goal'},
+        'trips.trip': {
+            'Meta': {'object_name': 'Trip'},
             'amount_needed': ('django.db.models.fields.DecimalField', [], {'max_digits': '7', 'decimal_places': '2'}),
             'created_at': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
             'due': ('django.db.models.fields.DateTimeField', [], {}),
