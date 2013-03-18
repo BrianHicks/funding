@@ -4,19 +4,7 @@ from django.core.urlresolvers import reverse
 from django.test import TestCase
 
 from funding.apps.funding.models import BalancedAccount
-
-
-class UserTestCase(TestCase):
-    'test with a user'
-    def setUp(self):
-        'add a user'
-        self.user = User.objects.create_user(
-            username='test',
-            password='test'
-        )
-        self.addCleanup(self.user.delete)
-
-        self.client.login(username='test', password='test')
+from funding.libs.usertest import UserTestCase
 
 
 class BalancedAccountAddViewTests(UserTestCase):
