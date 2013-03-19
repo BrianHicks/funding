@@ -26,12 +26,14 @@ class TripListViewTest(UserTestCase):
         resp = self.client.get(reverse('trips:list'))
         self.assertEqual(200, resp.status_code)
 
-    #def test_has_correct_objects(self):
-        #'has correct objects for user (those which can be modified)'
-        #yes = milkman.deliver(Trip, where='Yesland', user=self.user)
-        #no = milkman.deliver(Trip, where='Nopeland', user=self.user)
+    def test_has_correct_objects(self):
+        'has correct objects for user (those which can be modified)'
+        yes = milkman.deliver(Trip, where='Yesland', user=self.user)
+        no = milkman.deliver(Trip, where='Nopeland', user=self.user)
 
-        #resp = self.client.get(reverse('trips:list'))
+        yes.fully_authorize(self.user)
 
-        #self.assertIn(yes, resp.context['trip_list'])
-        #self.assertNotIn(no, resp.context['trip_list'])
+        resp = self.client.get(reverse('trips:list'))
+
+        self.assertIn(yes, resp.context['trip_list'])
+        self.assertNotIn(no, resp.context['trip_list'])

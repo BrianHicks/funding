@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="span12">
+        <ul>
+            {% for trip in trip_list %}
+            <li>{{ trip }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}

@@ -73,3 +73,9 @@ COMPRESS_PRECOMPILERS = (
 )
 COMPRESS_OFFLINE = False
 ########## END COMPRESSION CONFIGURATION
+
+########## TEST SPEEDUPS
+PASSWORD_HASHERS = (
+    'django.contrib.auth.hashers.MD5PasswordHasher',
+)
+########## END TEST SPEEDUPS
