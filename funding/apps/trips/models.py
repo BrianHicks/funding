@@ -1,5 +1,17 @@
 'models for Trips'
 from django.db import models
+from guardian.shortcuts import assign, get_objects_for_user
+
+from django.contrib.auth.models import User
+
+
+class TripManager(models.Manager):
+    'manager for Trips'
+    def for_user(self, perm, user):
+        'return a list of objects the user has permission for'
+        return get_objects_for_user(
+            user, 'trips.%s_trip' % perm
+        )
 
 
 class Trip(models.Model):
@@ -9,6 +21,7 @@ class Trip(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     # public representation
+    user = models.ForeignKey(User)
     what = models.TextField(help_text='What will you be doing?')
     where = models.CharField(
         max_length=140, help_text='Where will you be going?'
@@ -31,3 +44,13 @@ class Trip(models.Model):
     testimony = models.TextField(
         blank=True, help_text='Give a short testimony - why are you going?'
     )
+
+    objects = TripManager()
+
+    def fully_authorize(self, user):
+        'fully authorize a user to change this trip'
+        assign('change_trip', user, self)
+        assign('delete_trip', user, self)
+
+    def __unicode__(self):
+        return "%s's trip to %s" % (self.user, self.where)

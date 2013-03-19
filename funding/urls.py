@@ -14,6 +14,7 @@ urlpatterns = patterns(
     url(r'^admin/', include(admin.site.urls)),
 
     url(r'^funding/', include('apps.funding.urls', namespace='funding')),
+    url(r'^trips/', include('apps.trips.urls', namespace='trips')),
 
     url(r'^account/', include('account.urls')),
 
