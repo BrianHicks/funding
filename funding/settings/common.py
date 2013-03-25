@@ -303,8 +303,8 @@ AUTHENTICATION_BACKENDS = (
 ANONYMOUS_USER_ID = -1
 
 AUTH_PROFILE_MODULE = 'accounts.UserProfile'
-LOGIN_URL = '/accounts/signin/'
-LOGOUT_URL = '/accounts/signout/'
+LOGIN_URL = '/account/login/'
+LOGOUT_URL = '/account/logout/'
 
 ACCOUNT_EMAIL_CONFIRMATION_REQUIRED = True
 ACCOUNT_NOTIFY_ON_PASSWORD_CHANGE = True
