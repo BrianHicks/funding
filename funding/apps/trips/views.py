@@ -1,6 +1,9 @@
 'views for trips'
+from django.core.urlresolvers import reverse_lazy
+from django.views.generic.edit import CreateView
 from django.views.generic.list import ListView
 
+from .forms import TripForm
 from .models import Trip
 from funding.common.views import LoginRequiredMixin
 
@@ -11,3 +14,15 @@ class TripListView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         'get queryset for this list'
         return Trip.objects.for_user('change', self.request.user)
+
+class TripCreateView(LoginRequiredMixin, CreateView):
+    'create a new trip'
+    model = Trip
+    form_class = TripForm
+    success_url = reverse_lazy('trips:list')
+
+    def get_form_kwargs(self):
+        'get data to pass to TripForm'
+        kwargs = super(TripCreateView, self).get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
