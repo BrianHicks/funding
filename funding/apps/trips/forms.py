@@ -37,9 +37,15 @@ class TripForm(forms.ModelForm):
         'save with user'
         orig_commit, kwargs['commit'] = kwargs.get('commit', True), False
         instance = super(TripForm, self).save(*args, **kwargs)
-        instance.user = self.user
+        create = instance.pk is None
+
+        if create:
+            instance.user = self.user
 
         if orig_commit:
             instance.save()
+
+        if create and orig_commit:
+            instance.fully_authorize(self.user)
 
         return instance

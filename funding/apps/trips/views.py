@@ -1,5 +1,7 @@
 'views for trips'
 from django.core.urlresolvers import reverse_lazy
+from django.http import HttpResponseRedirect
+from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView
 from django.views.generic.list import ListView
 
@@ -14,6 +16,7 @@ class TripListView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         'get queryset for this list'
         return Trip.objects.for_user('change', self.request.user)
+
 
 class TripCreateView(LoginRequiredMixin, CreateView):
     'create a new trip'

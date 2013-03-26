@@ -103,3 +103,13 @@ class TripCreateViewTests(UserTestCase):
         self.assertEqual(302, resp.status_code)
         self.assertEqual(None, resp.context)
         self.assertTrue(resp['location'].endswith(reverse('trips:list')))
+
+    def test_post_assigns_permissions(self):
+        'POST assigns permissions'
+        resp = self.client.post(
+            reverse('trips:create'), data=self.get_trip_attrs()
+        )
+        latest = Trip.objects.latest('created_at')
+
+        self.assertTrue(self.user.has_perm('trips.change_trip', latest))
+        self.assertTrue(self.user.has_perm('trips.delete_trip', latest))
