@@ -1,5 +1,6 @@
 'tests for trips views'
 from datetime import datetime
+from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from milkman.dairy import milkman
 
@@ -113,3 +114,78 @@ class TripCreateViewTests(UserTestCase):
 
         self.assertTrue(self.user.has_perm('trips.change_trip', latest))
         self.assertTrue(self.user.has_perm('trips.delete_trip', latest))
+
+
+class TripUpdateViewTests(UserTestCase):
+    'tests for TripUpdateView'
+    def setUp(self):
+        'set up trip'
+        super(TripUpdateViewTests, self).setUp()
+        self.trip = milkman.deliver(Trip)
+        self.url = reverse('trips:update', kwargs={'pk': self.trip.pk})
+        self.trip.fully_authorize(self.user)
+
+    def get_trip_attrs(self):
+        'get trip attrs'
+        return {
+            'what': 'what',
+            'when': datetime.now().strftime('%Y-%m-%d'),
+            'due': datetime.now().strftime('%Y-%m-%d'),
+            'user': self.user,
+            'organization': 'organization',
+            'where': 'where',
+            'amount_needed': 50.00
+        }
+
+    def test_302_logged_out(self):
+        'redirects to login if not logged in'
+        self.client.logout()
+        resp = self.client.get(self.url)
+
+        self.assertEqual(302, resp.status_code)
+
+    def test_302_post_logged_out(self):
+        'redirects to login on POST if not logged in'
+        self.client.logout()
+        resp = self.client.post(self.url)
+
+        self.assertEqual(302, resp.status_code)
+
+    def test_200_get(self):
+        'supports GET if logged in'
+        resp = self.client.get(self.url)
+        self.assertEqual(200, resp.status_code)
+
+    def test_200_post(self):
+        'updates Trip if logged in'
+        attrs = self.get_trip_attrs()
+        resp = self.client.post(self.url, data=attrs)
+        new = Trip.objects.latest('updated_at')
+
+        self.assertEqual(302, resp.status_code)
+        self.assertNotEqual(self.trip.organization, attrs['organization'])
+        self.assertEqual(new.organization, attrs['organization'])
+
+    def test_200_post_other_user(self):
+        'denies other user'
+        self.client.logout()
+        new = User.objects.create_user(
+            username='other', password='test', email='a@b.com'
+        )
+        self.addCleanup(new.delete)
+        self.client.login(username='other', password='test')
+
+        attrs = self.get_trip_attrs()
+        resp = self.client.post(self.url, data=attrs)
+        new = Trip.objects.latest('updated_at')
+
+        self.assertEqual(404, resp.status_code)
+        self.assertNotEqual(new.organization, attrs['organization'])
+
+    def test_post_redirects_to_list(self):
+        'POST redirects to list on success'
+        resp = self.client.post(self.url, data=self.get_trip_attrs())
+
+        self.assertEqual(302, resp.status_code)
+        self.assertEqual(None, resp.context)
+        self.assertTrue(resp['location'].endswith(reverse('trips:list')))
