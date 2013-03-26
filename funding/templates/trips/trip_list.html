@@ -1,11 +1,12 @@
 {% extends "base.html" %}
+{% load url from future %}
 
 {% block content %}
 <div class="row">
     <div class="span12">
         <ul>
             {% for trip in trip_list %}
-            <li>{{ trip }}</li>
+            <li>{{ trip }} - <a href="{% url "trips:update" pk=trip.pk %}">edit</a></li>
             {% endfor %}
         </ul>
     </div>
