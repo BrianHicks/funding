@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load url from future %}
+
+{% block content %}
+<div class="row">
+    <div class="span12">
+        <h1>Delete {{ trip }}?</h1>
+        <p>
+        If you continue with this action, "{{ trip }}" will be deleted
+        unrecoverably. You will lose all funding and information associated
+        with the trip. Are you sure you want to do this?
+        </p>
+        <form action="." method="POST">
+            {% csrf_token %}
+            <div class="form-actions">
+                <a href="{% url "trips:list" %}" class="btn">Nope, get me out of here!</a>
+                <input type="submit" value="Delete {{ trip }} permanently" class="btn btn-danger pull-right" />
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -189,3 +189,61 @@ class TripUpdateViewTests(UserTestCase):
         self.assertEqual(302, resp.status_code)
         self.assertEqual(None, resp.context)
         self.assertTrue(resp['location'].endswith(reverse('trips:list')))
+
+
+class TripDeleteViewTests(UserTestCase):
+    'tests for TripDeleteView'
+    def setUp(self):
+        'set up trip'
+        super(TripDeleteViewTests, self).setUp()
+        self.trip = milkman.deliver(Trip)
+        self.url = reverse('trips:delete', kwargs={'pk': self.trip.pk})
+        self.trip.fully_authorize(self.user)
+
+    def test_302_logged_out(self):
+        'redirects to login if not logged in'
+        self.client.logout()
+        resp = self.client.get(self.url)
+
+        self.assertEqual(302, resp.status_code)
+
+    def test_302_post_logged_out(self):
+        'redirects to login on POST if not logged in'
+        self.client.logout()
+        resp = self.client.post(self.url)
+
+        self.assertEqual(302, resp.status_code)
+
+    def test_200_get(self):
+        'supports GET if logged in'
+        resp = self.client.get(self.url)
+        self.assertEqual(200, resp.status_code)
+
+    def test_200_post(self):
+        'deletes Trip if logged in'
+        resp = self.client.post(self.url)
+
+        self.assertEqual(302, resp.status_code)
+        self.assertEqual(0, Trip.objects.filter(id=self.trip.id).count())
+
+    def test_200_post_other_user(self):
+        'denies other user'
+        self.client.logout()
+        new = User.objects.create_user(
+            username='other', password='test', email='a@b.com'
+        )
+        self.addCleanup(new.delete)
+        self.client.login(username='other', password='test')
+
+        resp = self.client.post(self.url)
+
+        self.assertEqual(404, resp.status_code)
+        self.assertEqual(1, Trip.objects.filter(id=self.trip.id).count())
+
+    def test_post_redirects_to_list(self):
+        'POST redirects to list on success'
+        resp = self.client.post(self.url)
+
+        self.assertEqual(302, resp.status_code)
+        self.assertEqual(None, resp.context)
+        self.assertTrue(resp['location'].endswith(reverse('trips:list')))

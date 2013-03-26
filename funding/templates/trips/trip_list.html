@@ -1,12 +1,18 @@
 {% extends "base.html" %}
 {% load url from future %}
+{% load guardian_tags %}
 
 {% block content %}
 <div class="row">
     <div class="span12">
         <ul>
             {% for trip in trip_list %}
-            <li>{{ trip }} - <a href="{% url "trips:update" pk=trip.pk %}">edit</a></li>
+            {% get_obj_perms user for trip as "trip_perms" %}
+            <li>
+            {{ trip }}
+            {% if "change_trip" in trip_perms %}| <a href="{% url "trips:update" pk=trip.pk %}"><i class="icon-edit"></i> edit</a>{% endif %}
+            {% if "delete_trip" in trip_perms %}| <a href="{% url "trips:delete" pk=trip.pk %}"><i class="icon-remove-sign"></i> delete</a>{% endif %}
+            </li>
             {% endfor %}
         </ul>
     </div>

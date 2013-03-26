@@ -1,7 +1,7 @@
 'views for trips'
 from django.core.urlresolvers import reverse_lazy
 from django.http import HttpResponseRedirect
-from django.views.generic import UpdateView
+from django.views.generic import UpdateView, DeleteView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView
 from django.views.generic.list import ListView
@@ -41,3 +41,13 @@ class TripUpdateView(LoginRequiredMixin, UpdateView):
     def get_queryset(self):
         'get possible trips to update'
         return Trip.objects.for_user('change', self.request.user)
+
+
+class TripDeleteView(LoginRequiredMixin, DeleteView):
+    'delete an existing trip'
+    model = Trip
+    success_url = reverse_lazy('trips:list')
+
+    def get_queryset(self):
+        'get possible trips to delete'
+        return Trip.objects.for_user('delete', self.request.user)
