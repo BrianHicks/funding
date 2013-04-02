@@ -14,6 +14,14 @@ class TripManager(models.Manager):
         )
 
 
+trip_letter_help = "Write your support letter. A good letter includes most of " + \
+    "the following: where you're going, who you're going with, what you'll " + \
+    "be doing once you arrive, and a short testimony."
+
+trip_money_explanation_help = "Explain what money you need and what it will " + \
+    "go towards. This is also a good place to mention special needs for " + \
+    "this trip: what should people be praying for?"
+
 class Trip(models.Model):
     'a missions trip or project'
     # internal representation of this data
@@ -22,27 +30,18 @@ class Trip(models.Model):
 
     # public representation
     user = models.ForeignKey(User)
-    what = models.TextField(help_text='What will you be doing?')
-    where = models.CharField(
-        max_length=140, help_text='Where will you be going?'
-    )
-    when = models.DateTimeField(help_text='When is your goal?')
-    organization = models.CharField(
-        max_length=140, help_text='Who are you going with?'
-    )
+    letter = models.TextField(help_text=trip_letter_help)
+    where = models.CharField(max_length=140, help_text='Where are you going?')
+    when = models.CharField(max_length=140, help_text='When do you leave?')
 
     # money
+    money_explanation = models.TextField(help_text=trip_money_explanation_help)
     amount_needed = models.DecimalField(
         max_digits=7, decimal_places=2,
         help_text='How much do you need to raise?'
     )
     due = models.DateTimeField(
         help_text='When do you need to have all the money?'
-    )
-
-    # optional fields
-    testimony = models.TextField(
-        blank=True, help_text='Give a short testimony - why are you going?'
     )
 
     objects = TripManager()

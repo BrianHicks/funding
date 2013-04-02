@@ -74,9 +74,10 @@ class TripCreateViewTests(UserTestCase):
             'when': datetime.now().strftime('%Y-%m-%d'),
             'due': datetime.now().strftime('%Y-%m-%d'),
             'user': self.user,
-            'organization': 'organization',
             'where': 'where',
-            'amount_needed': 50.00
+            'amount_needed': 50.00,
+            'letter': 'test',
+            'money_explanation': 'test',
         }
 
     def test_302_logged_out(self):
@@ -157,9 +158,10 @@ class TripUpdateViewTests(UserTestCase):
             'when': datetime.now().strftime('%Y-%m-%d'),
             'due': datetime.now().strftime('%Y-%m-%d'),
             'user': self.user,
-            'organization': 'organization',
             'where': 'where',
-            'amount_needed': 50.00
+            'amount_needed': 50.00,
+            'letter': 'test',
+            'money_explanation': 'test',
         }
 
     def test_302_logged_out(self):
@@ -188,8 +190,8 @@ class TripUpdateViewTests(UserTestCase):
         new = Trip.objects.latest('updated_at')
 
         self.assertEqual(302, resp.status_code)
-        self.assertNotEqual(self.trip.organization, attrs['organization'])
-        self.assertEqual(new.organization, attrs['organization'])
+        self.assertNotEqual(self.trip.letter, attrs['letter'])
+        self.assertEqual(new.letter, attrs['letter'])
 
     def test_200_post_other_user(self):
         'denies other user'
@@ -205,7 +207,7 @@ class TripUpdateViewTests(UserTestCase):
         new = Trip.objects.latest('updated_at')
 
         self.assertEqual(404, resp.status_code)
-        self.assertNotEqual(new.organization, attrs['organization'])
+        self.assertNotEqual(new.letter, attrs['letter'])
 
     def test_post_redirects_to_list(self):
         'POST redirects to list on success'

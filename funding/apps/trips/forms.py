@@ -19,12 +19,11 @@ class TripForm(forms.ModelForm):
         self.helper.layout = Layout(
             Fieldset(
                 'Details about your trip',
-                'where', 'what', 'when', 'organization',
-                'testimony',
+                'where', 'when', 'letter',
             ),
             Fieldset(
                 'Funding Details',
-                'due', 'amount_needed',
+                'money_explanation', 'due', 'amount_needed',
             ),
             FormActions(
                 Submit('submit', 'Submit', css_class='button'),
