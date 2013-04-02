@@ -10,6 +10,13 @@ from .forms import TripForm
 from .models import Trip
 from funding.common.views import LoginRequiredMixin
 
+# PUBLIC VIEWS
+class TripDetailView(DetailView):
+    'detail for a single trip'
+    model = Trip
+
+
+# PRIVATE VIEWS
 class TripListView(LoginRequiredMixin, ListView):
     'list of trips'
     model = Trip

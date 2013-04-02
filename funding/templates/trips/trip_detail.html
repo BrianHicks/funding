@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% load guardian_tags %}
+
+{% block content %}
+{% if request.user.is_authenticated %}
+<div class="row">
+    <div class="span12">
+        <p>You're logged in.</p>
+    </div>
+</div>
+{% endif %}
+<div class="row">
+    <div class="span12">
+        <h1>{{ trip.user|title }} is going to {{ trip.where }}!</h1>
+        <!-- big background or video or something else awesome -->
+    </div>
+</div>
+<div class="row">
+    <div class="span8">
+        <h2>What I'll be doing</h2>
+        <p>{{ trip.what }}</p>
+        <h2>Who I'm going with</h2>
+        <p>{{ trip.who }}</p>
+        {% if trip.testimony %}
+        <h2>Why I'm going</h2>
+        <p>{{ testimony }}</p>
+        {% endif %}
+    </div>
+    <div class="span4">
+        <p>I need to raise ${{ trip.amount_needed }} by {{ trip.due }}.</p>
+        <a href="#" class="btn btn-primary btn-block">Support Me</a>
+    </div>
+</div>
+{% endblock %}

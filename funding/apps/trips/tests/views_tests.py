@@ -9,7 +9,31 @@ from funding.libs.usertest import UserTestCase
 from ..models import Trip
 
 
-class TripListViewTest(UserTestCase):
+class TripDetailViewTests(UserTestCase):
+    'tests for TripDetailView'
+    def setUp(self):
+        'set up trip'
+        super(TripDetailViewTests, self).setUp()
+        self.trip = milkman.deliver(Trip)
+        self.addCleanup(self.trip.delete)
+        self.url = reverse('trips:detail', kwargs={'pk': self.trip.pk})
+        self.trip.fully_authorize(self.user)
+
+    def test_200_user(self):
+        'succeeds for user'
+        self.assertEqual(200, self.client.get(self.url).status_code)
+
+    def test_200_anonymous(self):
+        'succeeds for anonymous'
+        self.client.logout()
+        self.assertEqual(200, self.client.get(self.url).status_code)
+
+    def test_no_post(self):
+        'fails for POST'
+        self.assertEqual(405, self.client.post(self.url).status_code)
+
+
+class TripListViewTests(UserTestCase):
     'tests for TripListView'
     def test_302_logged_out(self):
         'redirects to login if not logged in'
@@ -122,6 +146,7 @@ class TripUpdateViewTests(UserTestCase):
         'set up trip'
         super(TripUpdateViewTests, self).setUp()
         self.trip = milkman.deliver(Trip)
+        self.addCleanup(self.trip.delete)
         self.url = reverse('trips:update', kwargs={'pk': self.trip.pk})
         self.trip.fully_authorize(self.user)
 
@@ -197,6 +222,7 @@ class TripDeleteViewTests(UserTestCase):
         'set up trip'
         super(TripDeleteViewTests, self).setUp()
         self.trip = milkman.deliver(Trip)
+        self.addCleanup(self.trip.delete)
         self.url = reverse('trips:delete', kwargs={'pk': self.trip.pk})
         self.trip.fully_authorize(self.user)
 
