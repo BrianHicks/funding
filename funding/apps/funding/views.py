@@ -12,7 +12,7 @@ from funding.common.views import LoginRequiredMixin
 class BalancedAccountAddView(LoginRequiredMixin, CreateView):
     'view to display the add account form to the receiver'
     form_class = BalancedAccountForm
-    template_name = 'funding/funding/receiver_account_add.html'
+    template_name = 'funding/bankaccount_add.html'
     success_url = reverse_lazy('funding:list')
 
     def get_form_kwargs(self):
