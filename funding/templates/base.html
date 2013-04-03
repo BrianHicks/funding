@@ -31,7 +31,8 @@
             <ul class="nav nav-pills pull-right">
                 <li><a href="{% url "static:homepage" %}">Home</a></li>
                 {% if user.is_authenticated %}
-                <li><a href="#">Your Profile</a></li>
+                <li><a href="{% url "trips:list" %}">Trips</a></li>
+                <li><a href="{% url "funding:list" %}">Accounts</a></li>
                 <li><a href="{% url "account_logout" %}">Sign Out</a></li>
                 {% else %}
                 <li><a href="{% url "account_login" %}">Log In</a></li>
