@@ -70,9 +70,9 @@ function BankAccountModel() {
 
     self.balancedUri = ko.observable();
 
-    self.routingNumber = new RoutingNumberModel('321174851');
-    self.accountNumber = new AccountNumberModel('123456');
-    self.name = new NameModel('Brian Hicks');
+    self.routingNumber = new RoutingNumberModel();
+    self.accountNumber = new AccountNumberModel();
+    self.name = new NameModel();
     self.type = new TypeModel('checking');
 
     self.valid = ko.computed(function() {
