@@ -9,7 +9,7 @@
             {% for trip in trip_list %}
             {% get_obj_perms user for trip as "trip_perms" %}
             <li>
-            {{ trip }}
+            <a href="{% url "trips:detail" pk=trip.pk %}">{{ trip }}</a>
             {% if "change_trip" in trip_perms %}| <a href="{% url "trips:update" pk=trip.pk %}"><i class="icon-edit"></i> edit</a>{% endif %}
             {% if "delete_trip" in trip_perms %}| <a href="{% url "trips:delete" pk=trip.pk %}"><i class="icon-remove-sign"></i> delete</a>{% endif %}
             </li>

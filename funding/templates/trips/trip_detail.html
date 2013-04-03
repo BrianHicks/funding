@@ -10,7 +10,7 @@
 <div class="alert alert-info">
     <strong>Hey {{ user.first_name|default:"there" }}!</strong>
     This is a preview of a trip {% if user == trip.user %}you are{% else %}{{ trip.user.first_name|default:"Someone"|title }} is{% endif %} going on.
-    You can <a href="{% url "trips:update" trip.pk %}">edit this trip</a>.
+    You can <a href="{% url "trips:update" pk=trip.pk %}">edit this trip</a>.
     You can also <a href="{% url "trips:list" %}">go back to the trip list</a>.
 </div>
 {% endif %}
