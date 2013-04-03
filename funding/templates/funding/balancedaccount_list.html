@@ -8,12 +8,21 @@
 {% endblock %}
 
 {% block content %}
-<h1>Your Bank Accounts</h1>
-<ul>
-    {% for ba in bankaccount_list %}
-    <li>{{ ba }} - <a href="{% url "funding:delete" ba.pk %}">[delete]</a></li>
-    {% empty %}
-    <li>No Accounts in the System</li>
-    {% endfor %}
-</ul>
+<div class="row">
+    <div class="span12">
+        <h1>Your Bank Accounts</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="span12">
+        <ul>
+            {% for ba in bankaccount_list %}
+            <li>{{ ba }} - <a href="{% url "funding:delete" ba.pk %}">[delete]</a></li>
+            {% empty %}
+            <li>No Accounts in the System</li>
+            {% endfor %}
+        </ul>
+        <a href="{% url "funding:add" %}" class="btn btn-primary">Add a Bank Account</a>
+    </div>
+</div>
 {% endblock content %}

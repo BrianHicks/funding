@@ -4,6 +4,11 @@
 
 {% block content %}
 <div class="row">
+  <div class="span12">
+    <h1>Your Trips</h1>
+  </div>
+</div>
+<div class="row">
     <div class="span12">
         <ul>
             {% for trip in trip_list %}
@@ -13,6 +18,8 @@
             {% if "change_trip" in trip_perms %}| <a href="{% url "trips:update" pk=trip.pk %}"><i class="icon-edit"></i> edit</a>{% endif %}
             {% if "delete_trip" in trip_perms %}| <a href="{% url "trips:delete" pk=trip.pk %}"><i class="icon-remove-sign"></i> delete</a>{% endif %}
             </li>
+            {% empty %}
+            <li>No Trips yet, create one below!</li>
             {% endfor %}
         </ul>
         <a href="{% url "trips:create" %}" class="btn btn-primary">Create a new Trip</a>
