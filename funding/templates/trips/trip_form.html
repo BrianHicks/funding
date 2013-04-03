@@ -1,5 +1,13 @@
 {% extends "base.html" %}
+{% load compress %}
 {% load crispy_forms_tags %}
+
+{% block header_scripts %}
+{% compress js %}
+<script type="text/javascript">var django = { jQuery: jQuery };</script>
+{{ form.media }}
+{% endcompress %}
+{% endblock %}
 
 {% block content %}
 <div class="row">

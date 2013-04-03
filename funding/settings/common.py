@@ -213,6 +213,9 @@ THIRD_PARTY_APPS = (
     # User management:
     'account',
 
+    # Frontend:
+    'epiceditor',
+
     # Utility
     'guardian',
     'easy_thumbnails',
@@ -286,12 +289,12 @@ COMPRESS_PRECOMPILERS = (
 
 # See: http://django_compressor.readthedocs.org/en/latest/settings/#django.conf.settings.COMPRESS_CSS_FILTERS
 COMPRESS_CSS_FILTERS = [
-    'compressor.filters.jsmin.JSMinFilter',
+    'compressor.filters.css_default.CssAbsoluteFilter',
 ]
 
 # See: http://django_compressor.readthedocs.org/en/latest/settings/#django.conf.settings.COMPRESS_JS_FILTERS
 COMPRESS_JS_FILTERS = [
-    'compressor.filters.css_default.CssAbsoluteFilter',
+    'compressor.filters.jsmin.JSMinFilter',
 ]
 ########## END COMPRESSION CONFIGURATION
 

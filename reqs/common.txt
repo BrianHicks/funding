@@ -1,6 +1,6 @@
-Django>=1.4.0,<=1.4.9
+Django>=1.4.0,<1.5
 django-celery==3.0.11
-django-compressor==1.2
+django-compressor==1.3
 Fabric==1.4.3
 South==0.7.6
 Sphinx==1.1.3
@@ -8,3 +8,4 @@ balanced==0.9.7
 django-guardian==1.0.4
 easy-thumbnails==1.1
 django-user-accounts==1.0b8
+django-epiceditor==0.2.1.2

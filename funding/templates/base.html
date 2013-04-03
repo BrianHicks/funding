@@ -16,6 +16,9 @@
         <link rel="stylesheet" href="{{ STATIC_URL }}styles/bootstrap/bootstrap.less" type="text/less" />
         <link rel="stylesheet" href="{{ STATIC_URL }}styles/app.less" type="text/less" />
         {% endcompress %}
+        {% block extra_css %}{% endblock extra_css %}
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.js"></script>
+        {% block header_scripts %}{% endblock header_scripts %}
     </head>
     <body>
         <!--[if lt IE 7]>
@@ -51,7 +54,6 @@
             </footer>
         </div>
 
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.js"></script>
         {% block extra_scripts %}{% endblock extra_scripts %}
     </body>
 </html>
