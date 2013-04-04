@@ -216,6 +216,7 @@ THIRD_PARTY_APPS = (
 
     # Frontend:
     'epiceditor',
+    'micawber.contrib.mcdjango',
 
     # Utility
     'guardian',
