@@ -29,7 +29,7 @@ class TripForm(forms.ModelForm):
         self.helper.layout = Layout(
             Fieldset(
                 'Details about your trip',
-                'where', 'when', 'letter',
+                'where', 'when', 'letter', 'video',
             ),
             Fieldset(
                 'Funding Details',

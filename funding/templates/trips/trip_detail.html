@@ -2,6 +2,7 @@
 {% load url from future %}
 {% load guardian_tags %}
 {% load markup %}
+{% load micawber_tags %}
 
 {% block content %}
 {% if request.user.is_authenticated %}
@@ -23,6 +24,9 @@
 </div>
 <div class="row">
     <div class="span8">
+        {% if trip.video %}
+        {{ trip.video|oembed:"600" }}
+        {% endif %}
         {{ trip.letter|markdown:"safe" }}
     </div>
     <div class="span4">

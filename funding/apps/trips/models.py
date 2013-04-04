@@ -33,6 +33,10 @@ class Trip(models.Model):
     letter = models.TextField(help_text=trip_letter_help)
     where = models.CharField(max_length=140, help_text='Where are you going?')
     when = models.CharField(max_length=140, help_text='When do you leave?')
+    video = models.CharField(
+        max_length=140, blank=True,
+        help_text='Personalize your trip page with a video about your trip. Copy a video URL in this field and we will do our best to display it properly.'
+    )
 
     # money
     money_explanation = models.TextField(help_text=trip_money_explanation_help)
