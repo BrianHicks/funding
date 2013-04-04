@@ -22,7 +22,6 @@ class TripForm(forms.ModelForm):
         'initialize this form'
         # change form widgets to use Markdown
         self.base_fields['letter'].widget = EpicEditorWidget(themes=TRIP_THEMES)
-        self.base_fields['money_explanation'].widget = EpicEditorWidget(themes=TRIP_THEMES)
 
         # Initialize crispy form helper
         self.helper = FormHelper()
