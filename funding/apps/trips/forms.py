@@ -3,7 +3,6 @@ from crispy_forms.bootstrap import FormActions
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Fieldset, Submit
 from django import forms
-from epiceditor.widgets import EpicEditorWidget
 
 from .models import Trip
 
@@ -20,9 +19,6 @@ class TripForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         'initialize this form'
-        # change form widgets to use Markdown
-        self.base_fields['letter'].widget = EpicEditorWidget(themes=TRIP_THEMES)
-
         # Initialize crispy form helper
         self.helper = FormHelper()
         self.helper.layout = Layout(

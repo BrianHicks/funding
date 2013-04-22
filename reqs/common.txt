@@ -8,6 +8,5 @@ balanced==0.9.7
 django-guardian==1.0.4
 easy-thumbnails==1.1
 django-user-accounts==1.0b8
-django-epiceditor==0.2.1.2
 markdown==2.3.1
 micawber==0.2.6
